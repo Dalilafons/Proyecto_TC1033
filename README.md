@@ -1,5 +1,2 @@
 # TC1030 Proyecto Tienda
-Este proyecto está diseñado para simular la gestión eficaz de una tienda que ofrece una amplia variedad de productos, 
-incluyendo artículos generales y alimentos. El sistema permite una organización del inventario y facilita la realización de ventas, 
-integrando funciones para mostrar informes detallados sobre el estado actual del inventario y el desempeño de las ventas. 
-Además de permitir realizar y seguir transacciones con facilidad.
+Este proyecto está diseñado para simular la gestión eficaz de una tienda que ofrece una amplia variedad de productos, incluyendo artículos generales y alimentos. Los artículos generales, además, están sujetos a una tasa de impuesto que se calcula en su precio. El sistema permite una organización meticulosa del inventario y facilita la realización de ventas, integrando funciones para mostrar informes detallados sobre el estado del inventario y el desempeño de las ventas. Además, permite realizar y seguir transacciones con facilidad.
