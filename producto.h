@@ -14,6 +14,7 @@ class Producto
         int cantidad;
     public://Esqueleto:
         Producto(int id1, std::string nombre1, double precio1,int cantidad1);
+        virtual ~Producto();
         virtual double calcularPrecio();
         std::string getNombre();
         double getPrecio();
@@ -27,6 +28,9 @@ class Producto
 //Metodos Producto:
 Producto::Producto(int id1, std::string nombre1, double precio1,int cantidad1)
         : id(id1), nombre(nombre1), precio(precio1), cantidad(cantidad1) {}
+Producto::~Producto(){} //Destructor.
+
+//Polimorfismo: función virtual que permite el polimorfismo:
 double Producto::calcularPrecio()
         {
             return precio;
@@ -51,7 +55,7 @@ void Producto::setPrecio(int nuevoPrecio)
         {
             precio = nuevoPrecio;
         }
- // Sobrecarga de setPrecio para aceptar un descuento en porcentaje:
+ //Sobrecarga: de setPrecio para aceptar un descuento en porcentaje:
 void Producto::setPrecio(int nuevoPrecio, double descuento)
         {
             precio = nuevoPrecio * (1 - descuento / 100);
@@ -72,13 +76,17 @@ class Articulo : public Producto
         double tasaImpuesto;
     public:
         Articulo(int id1, std::string nombre1, double precio1,int cantidad1, double tasaImpuesto1);
+        ~Articulo() override;
         double calcularPrecio() override; 
         double getTasaImpuesto();
 };
 //Metodos Articulo:
 Articulo::Articulo(int id1, std::string nombre1, double precio1,int cantidad1, double tasaImpuesto1)
         : tasaImpuesto(tasaImpuesto1), Producto(id1,nombre1,precio1,cantidad1){}
-//Sobrescribe el metodo calcularPrecio(), de producto:
+
+Articulo::~Articulo(){} //Destructor virtual sobreescrito.
+
+//Poliformisfo: Sobrescritura de la función virtual calcularPrecio, implementando polimorfismo
 double Articulo::calcularPrecio()
     {
         double total;
@@ -95,13 +103,16 @@ class Alimento: public Producto //Clase que hereda de producto.
 {
     public:
         Alimento(int id1, std::string nombre1, double precio1,int cantidad1);
+        ~Alimento() override;
         double calcularPrecio() override;
 
 };
 //Metodos Alimento:
 Alimento::Alimento(int id1, std::string nombre1, double precio1,int cantidad1)
         : Producto(id1,nombre1,precio1,cantidad1){}
-//Sobrescribe el metodo calcularPrecio(), de producto:
+Alimento::~Alimento(){} //Destructor virtual sobrescrito.
+
+//Poliformismo: Sobrescritura de la función virtual calcularPrecio, implementando polimorfismo.
 double Alimento::calcularPrecio() 
         {
             double total;
