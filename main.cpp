@@ -1,38 +1,41 @@
 #include <iostream>  
 #include <string> 
 #include "producto.h" // bibliotecas con objetos de mi proyecto.
-#include "tienda.h"
+#include "tienda.h" 
 
 int main(void)
 {
-    Tienda tienda1;
+    Producto* producto1 = new Alimento(1, "Pan", 1.0, 10);
+    Producto* producto2 = new Articulo(2, "Laptop", 1000.0, 5, 15.0);
 
-    // Crear un inventario:
-    tienda1.crearInventario();
-    tienda1.mostrarInformacionInventario();
+    // Polimorfismo llamando a calcularPrecio():
+    std::cout << "Precio del " << producto1->getNombre() <<" : " << producto1->calcularPrecio() << std::endl;
+    std::cout << "Precio de la " << producto2->getNombre() <<" : " << producto2->calcularPrecio() << std::endl;
 
-    // Crear una venta:
-    tienda1.crearVenta();
-    tienda1.mostrarInformacionVenta();
+    // Crear un inventario y agregar productos:
+    Inventario inventario;
+    inventario.agregarProducto(producto1);
+    inventario.agregarProducto(producto2);
+    inventario.mostrarInventario();
 
-    // Demostrar el uso de la sobreescritura y sobrecarga:
-    // Sobreescritura de calcularPrecio:
-    Producto* articulo = new Articulo(1, "Lapiz", 1.50, 100, 10.0);
-    Producto* alimento = new Alimento(2, "Manzana", 0.80, 50);
+    // Buscar un producto por ID y demostrando polimorfismo:
+    if (Producto* productoEncontrado = inventario.buscarProducto(1)) {
+        std::cout << "Producto encontrado: " << productoEncontrado->getNombre() 
+                  << ", Precio calculado: " << productoEncontrado->calcularPrecio() << std::endl;
+    }
 
-    std::cout << "Precio calculado para articulo: " << articulo->calcularPrecio() << std::endl;
-    std::cout << "Precio calculado para alimento: " << alimento->calcularPrecio() << std::endl;
+    // Crear una venta y agregar productos vendidos:
+    Venta venta;
+    venta.agregarProductoVenta(producto1);
+    venta.agregarProductoVenta(producto2);
+    venta.mostrarDetallesVenta();
 
-    // Sobrecarga de setPrecio:
-    articulo->setPrecio(1.40);
-    std::cout << "Nuevo precio para articulo sin descuento: " << articulo->getPrecio() << std::endl;
+    // Calcular total de la venta con y sin descuento usando polimorfismo:
+    std::cout << "Total de la venta: " << venta.calcularTotal() << std::endl;
+    std::cout << "Total de la venta con 10% de descuento: " << venta.calcularTotal(10.0) << std::endl;
 
-    articulo->setPrecio(1.40, 10.0); // 10% de descuento
-    std::cout << "Nuevo precio para articulo con descuento: " << articulo->getPrecio() << std::endl;
-
-    // Liberar memoria
-    delete articulo;
-    delete alimento;
-
+    // Limpiar memoria
+    delete producto1;
+    delete producto2;
     return 0;
 }
