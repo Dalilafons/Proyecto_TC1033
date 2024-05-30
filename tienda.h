@@ -8,10 +8,12 @@
 class Inventario
 {
     private:
+        // Arreglo de punteros a Producto, permitiendo polimorfismo.
         Producto* producto[10];// Cree un arreglo de 100 punteros del tipo Producto.
         int numProductos;
     public:
         Inventario();
+        ~Inventario();
         void agregarProducto(Producto* p);
         void eliminarProducto(int id);
         void eliminarProducto(std::string nombre);
@@ -22,6 +24,13 @@ class Inventario
 };
 //Metodos inventario:
 Inventario::Inventario(): numProductos(0){} //Inicializa numProductos en 0.
+Inventario::~Inventario() //Destructor.
+    {
+        for (int i = 0; i < numProductos; ++i) 
+        {
+            delete producto[i]; // Liberar la memoria de cada producto
+        }
+    }
 void Inventario::agregarProducto(Producto* p) //Recibe un puntero a un objeto de tipo Producto.
     {
         if (numProductos < 10)
@@ -49,7 +58,7 @@ void Inventario::eliminarProducto(int id)
            }
         std::cout << "Producto no encontrado" << std::endl;
     }
-// Sobrecarga de eliminarProducto para eliminar por nombre:
+// Sobrecarga: de eliminarProducto para eliminar por nombre:
 void Inventario::eliminarProducto(std::string nombre) 
     {
         for (int i = 0; i < numProductos; i++) 
@@ -99,11 +108,13 @@ int Inventario::getNumProductos()
 class Venta
 {
     private:
+        // Arreglo de punteros a Producto, permitiendo polimorfismo.
         Producto* productosVendidos[100];// Cree un arreglo de 100 punteros del tipo Producto.
         double total;
         int numVentas;
     public:
         Venta();
+        ~Venta();
         void agregarProductoVenta(Producto* p_vendido);
         double calcularTotal();
         double calcularTotal(double descuento);
@@ -111,6 +122,13 @@ class Venta
 };
 //Metodos venta:
 Venta::Venta(): numVentas(0), total(0.0){}//Inicializa ventas en 0 y total.
+Venta::~Venta() //Destructor.
+        {
+            for (int i = 0; i < numVentas; ++i) 
+            {
+                delete productosVendidos[i]; // Liberar la memoria de cada producto vendido
+            }
+        }
 void Venta::agregarProductoVenta(Producto* p_vendido)
         {
             if (numVentas < 10)
@@ -127,16 +145,18 @@ double Venta::calcularTotal()
             total = 0.0;
             for (int i = 0; i < numVentas;i++)
             {
+                //Uso de Polimorfismo: llama a calcularPrecio() en el tipo derivado correcto.
                 total += productosVendidos[i] ->calcularPrecio() * productosVendidos[i]->getCantidad();
             }
             return total;
         }
-//Sobrecarga de calcularTotal para aplicar un descuento adicional:
+//Sobrecarga: de calcularTotal para aplicar un descuento adicional:
 double Venta::calcularTotal(double descuento) 
         {
             total = 0.0;
             for (int i = 0; i < numVentas; i++) 
             {
+                // Uso de polimorfismo: llama a calcularPrecio() en el tipo derivado correcto.
                 total += productosVendidos[i]->calcularPrecio() * productosVendidos[i]->getCantidad();
             }
             return total * (1 - descuento / 100);
@@ -158,6 +178,7 @@ private:
     Venta ventaActual;
 public:
     Tienda();
+    ~Tienda();
     void crearInventario();
     void crearVenta();
     void mostrarInformacionInventario();
@@ -165,6 +186,7 @@ public:
 };
 //Metodos Tienda:
 Tienda::Tienda(){}
+Tienda::~Tienda(){} //Destructor.
 void Tienda::crearInventario()
     {
         char respuesta;
