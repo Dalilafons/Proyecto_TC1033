@@ -1,186 +1,177 @@
 /*
  *
- * Proyecto Tienda clase Inventario
+ * Proyecto Tienda clase Tienda
  * Dalila Fonseca Maya
  * A01711722
  * 06/06/2024
  * 
- * Esta clase define objeto de tipo Inventario y Venta que contienen las operaciones
- * para agregar, eliminar y buscar productos en el inventario, y para gestionar las ventas.
- * Esta clase es utilizada por la función principal del programa y es parte del proyecto Tienda.
+ * Esta clase define un objeto de tipo Tienda que gestiona el inventario y las ventas.
+ * Permite crear y agregar productos al inventario, realizar ventas de productos, 
+ * y mostrar la información tanto del inventario como de las ventas realizadas.
+ * Utiliza polimorfismo para manejar productos de diferentes tipos.
+ * Esta clase es parte del proyecto Tienda.
  */
 
-#ifndef INVENTARIO_H_ 
-#define INVENTARIO_H_ 
+#ifndef TIENDA_H_ 
+#define TIENDA_H_ 
 
 #include <iostream>
 
 #include <string>
 
-#include "producto.h"//biblioteca con mis objetos a usar.
+// Bibliotecas con mis objetos a usa:
+#include "producto.h"
+#include "inventario.h"
+#include "venta.h"
 
-// Declaración de la clase Inventario
-class Inventario
+// Declaración de la clase Tienda
+class Tienda
 {
-    // Variables de instancia de Inventario
+    // Variables de instancia de Tienda
     private:
-        Producto* producto[20];// Se define como apuntador para usar polimorfismo.
-        int numProductos;
-
-    // Métodos de Inventario
+        Inventario inventario;
+        Venta ventaActual;
+    
+    // Métodos de Tienda
     public:
-        Inventario();
-        void agregarProducto(Producto* p);
-        void eliminarProducto(int id);
-        void eliminarProducto(std::string nombre);
-        Producto* buscarProducto(int id);
-        void mostrarInventario();
-        Producto** getProductos();
-        int getNumProductos();
+        Tienda();
+        void crearInventario();
+        void crearVenta();
+        void mostrarInformacionInventario();
+        void mostrarInformacionVenta();
 };
 
 /**
- * Constructor por defecto de Inventario.
- *
- * Inicializa el número de productos a 0.
+ * Constructor por defecto de Tienda.
  * 
  * @param
  * @return
  */
-Inventario::Inventario(): numProductos(0){} 
+Tienda::Tienda(){}
 
 /**
- * agregarProducto agrega un producto al inventario.
+ * crearInventario crea un inventario de productos.
  *
- * Recibe un puntero a un objeto de tipo Producto y lo agrega al inventario.
- *
- * @param p Puntero a un objeto Producto.
+ * Solicita al usuario la cantidad de productos y los detalles de cada producto, y los agrega al inventario.
+ * 
+ * @param
  * @return
  */
-void Inventario::agregarProducto(Producto* p) 
+void Tienda::crearInventario()
     {
-        if (numProductos < 20)// Limitar a 20 productos
+        char respuesta;
+        std::cout << "Quieres crear un inventario? (s/n): ";
+        std::cin >> respuesta;
+        if (respuesta == 's' || respuesta == 'S')
+        {
+            int numProductos;
+            std::cout << "Cuantos productos quieres agregar?: ";
+            std::cin >> numProductos;
+
+            for (int i = 0; i < numProductos; ++i)
             {
-                producto[numProductos++] = p; 
+                int id, cantidad, tipoProducto;
+                double precio, tasaImpuesto;
+                std::string nombre;
+                std::cout << "Agregar producto " << i + 1 << ":" << std::endl;
+                std::cout << "ID: ";
+                std::cin >> id;
+                std::cout << "Nombre: ";
+                std::cin.ignore(); // Ignorar el salto de línea anterior
+                std::getline(std::cin, nombre);
+                std::cout << "Precio: ";
+                std::cin >> precio;
+                std::cout << "Cantidad: ";
+                std::cin >> cantidad;
+                std::cout << "Tipo de producto (1 - Alimento, 2 - Articulo): ";
+                std::cin >> tipoProducto;
+
+                if (tipoProducto == 1)
+                {
+                    inventario.agregarProducto(new Alimento(id, nombre, precio, cantidad));
+                }
+                else if (tipoProducto == 2)
+                {
+                    std::cout << "Tasa de Impuesto (%): ";
+                    std::cin >> tasaImpuesto;
+                    inventario.agregarProducto(new Articulo(id, nombre, precio, cantidad, tasaImpuesto));
+                }
+                else
+                {
+                    std::cout << "Tipo de producto no valido." << std::endl;
+                }
             }
+            std::cout << "Inventario creado." << std::endl;
+        }
         else
-            {
-                std::cout << "Inventario lleno" << std::endl;
-            }
-    }
-
-/**
- * eliminarProducto elimina un producto del inventario por ID.
- *
- * Busca un producto por su ID y lo elimina del inventario.
- *
- * @param id ID del producto a eliminar.
- * @return
- */
-void Inventario::eliminarProducto(int id)
-    {
-        for (int i = 0; i < numProductos; i++) 
-           {
-                if (producto[i]->getId()== id)
-                {
-                    for(int a = i; a < numProductos -1; ++a)
-                    {
-                        producto[a] = producto[a+1];
-                    }
-                    --numProductos;
-                    return;
-                }
-           }
-        std::cout << "Producto no encontrado" << std::endl;
-    }
-
-/**
- * eliminarProducto elimina un producto del inventario por nombre.
- *
- * Busca un producto por su nombre y lo elimina del inventario.
- *
- * @param nombre Nombre del producto a eliminar.
- * @return
- */
-void Inventario::eliminarProducto(std::string nombre) 
-    {
-        for (int i = 0; i < numProductos; i++) 
-            {
-                if (producto[i]->getNombre() == nombre) 
-                {
-                    for (int j = i; j < numProductos - 1; ++j) 
-                    {
-                        producto[j] = producto[j + 1];
-                    }
-                --numProductos;
-                return;
-            }
-    }
-    std::cout << "Producto no encontrado" << std::endl;
-    }
-
-/**
- * buscarProducto busca un producto en el inventario por ID.
- *
- * Busca un producto por su ID y devuelve un puntero al producto si se encuentra.
- *
- * @param id ID del producto a buscar.
- * @return Puntero al producto encontrado, o nullptr si no se encuentra.
- */
-Producto* Inventario::buscarProducto(int id)
         {
-            for (int i = 0; i < numProductos; i++)
-            {
-                if (producto[i]->getId()==id)
-                {
-                    std::cout << "El producto encontrado es: " << producto[i]->getNombre() << std::endl;
-                    return producto[i];
-                }
-            }    
-            std::cout << "Producto con id:" << id << "no encontrado."<<std::endl;    
-            return nullptr;
+            std::cout << "No se creo el inventario." << std::endl;
         }
 
+    }
+
 /**
- * mostrarInventario muestra la información del inventario.
+ * crearVenta crea una nueva venta.
  *
- * Imprime la información de todos los productos en el inventario.
+ * Solicita al usuario la cantidad de productos a agregar a la venta y los detalles de cada producto.
+ * Luego, agrega los productos a la venta si se encuentran en el inventario.
  * 
  * @param
  * @return
  */
-void Inventario::mostrarInventario()
+void Tienda::crearVenta()
+    {
+        ventaActual = Venta(); // Resetea la venta actual
+        int numProductos;
+        std::cout << "Cuantos productos quieres agregar a la venta?: ";
+        std::cin >> numProductos;
+
+        for (int i = 0; i < numProductos; ++i)
         {
-            std::cout<<"Informacion del inventario:"<<std::endl;
-            for(int i = 0; i < numProductos;i++ )
+            int id, cantidad;
+            std::cout << "Agregar producto " << i + 1 << " a la venta:" << std::endl;
+            std::cout << "ID: ";
+            std::cin >> id;
+            //std::cout << "Cantidad: ";
+            //std::cin >> cantidad;
+            Producto* producto = inventario.buscarProducto(id);
+            if (producto != nullptr)
             {
-                producto[i]->infoProducto();
+                ventaActual.agregarProductoVenta(producto);
+                std::cout << "Producto agregado a la venta." << std::endl;
+            }
+            else
+            {
+                std::cout << "Producto no encontrado en el inventario." << std::endl;
             }
         }
-/**
- * getProductos obtiene el arreglo de productos.
- *
- * Devuelve un puntero al arreglo de productos.
- *
- * @param
- * @return Puntero al arreglo de productos.
- */
-Producto** Inventario::getProductos()
-        {
-            return producto;
-        }
+        std::cout << "Venta creada." << std::endl;
+    }
 
 /**
- * getNumProductos obtiene el número de productos en el inventario.
+ * mostrarInformacionInventario muestra la información del inventario.
  *
- * Devuelve el número de productos actualmente en el inventario.
- *
+ * Llama al método mostrarInventario del objeto Inventario para imprimir la información de todos los productos en el inventario.
+ * 
  * @param
- * @return Número de productos en el inventario.
+ * @return
  */
-int Inventario::getNumProductos()
-        {
-            return numProductos;
-        }
+void Tienda::mostrarInformacionInventario()
+    {
+        inventario.mostrarInventario();
+    }
 
-#endif // INVENTARIO_H
+/**
+ * mostrarInformacionVenta muestra la información de la venta.
+ *
+ * Llama al método mostrarDetallesVenta del objeto Venta para imprimir la información de todos los productos vendidos y el total de la venta.
+ * 
+ * @param 
+ * @return
+ */
+void Tienda::mostrarInformacionVenta() 
+    {
+        ventaActual.mostrarDetallesVenta();
+    }
+
+#endif //TIENDA_H
