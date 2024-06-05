@@ -47,5 +47,6 @@ No eliminar correctamente los objetos creados dinámicamente con new. Si el prog
 No tener un compilador C++ compatible con C++11 o superior instalado puede causar errores de compilación.
 Errores en la inclusión de archivos de cabecera (por ejemplo, falta de #include "producto.h" en los archivos que lo necesitan).
 
-## Correciones que se realizaron: 
+## Correciones realizadas: 
+Se agregó una sección en el README.md titulada Casos de Fallo Comunes que Harían que el Proyecto Deje de Funcionar. Esta sección detalla los posibles escenarios en los que el proyecto podría fallar. 
 
