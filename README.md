@@ -5,13 +5,16 @@ Este proyecto está diseñado para simular la gestión eficaz de una tienda que 
 El programa permite gestionar un inventario de productos y realizar ventas. Incluye las siguientes características:
 **Altas de Nuevos Productos**:
    - Agregar nuevos productos al inventario (Alimentos o Artículos).
+     
 **Gestión de Inventario**:
    - Mostrar todos los productos.
    - Buscar y eliminar productos por ID o nombre.
+
 **Realización de Ventas**:
    - Agregar productos a una venta.
    - Calcular el total de la venta, con y sin descuento.
    - Mostrar detalles de la venta.
+
 **Menú Interactivo**:
    - Menú con opciones iniciales que corre sobre consola.
 
@@ -19,6 +22,7 @@ El programa permite gestionar un inventario de productos y realizar ventas. Incl
 El programa solo corre en la consola y está hecho con C++ estándar, por lo que funciona en todos los sistemas operativos.
 - **Compilación**: 
 Utiliza el siguiente comando para compilar el proyecto: g++ producto.h inventario.h venta.h tienda.h main.cpp -o tienda
+
 - **Ejecución**:
 En Linux: ./tienda
 En Windows: tienda.exe
