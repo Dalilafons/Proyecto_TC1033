@@ -1,177 +1,131 @@
 /*
  *
- * Proyecto Tienda clase Tienda
+ * Proyecto Tienda clase Venta
  * Dalila Fonseca Maya
  * A01711722
  * 06/06/2024
  * 
- * Esta clase define un objeto de tipo Tienda que gestiona el inventario y las ventas.
- * Permite crear y agregar productos al inventario, realizar ventas de productos, 
- * y mostrar la información tanto del inventario como de las ventas realizadas.
- * Utiliza polimorfismo para manejar productos de diferentes tipos.
- * Esta clase es parte del proyecto Tienda.
+ * Esta clase define un objeto de tipo Venta que contiene las operaciones
+ * necesarias para gestionar las ventas de productos. Permite agregar productos
+ * a la venta, calcular el total de la venta, aplicar descuentos, y mostrar
+ * detalles de la venta. Los productos pueden ser de diferentes tipos (por ejemplo,
+ * Articulo o Alimento) gracias al uso de polimorfismo. Esta clase es utilizada
+ * por la función principal del programa y es parte del proyecto Tienda.
  */
 
-#ifndef TIENDA_H_ 
-#define TIENDA_H_ 
+#ifndef VENTA_H_ 
+#define VENTA_H_ 
 
 #include <iostream>
 
 #include <string>
 
-// Bibliotecas con mis objetos a usa:
-#include "producto.h"
-#include "inventario.h"
-#include "venta.h"
+#include "producto.h"//biblioteca con mis objetos a usar.
 
-// Declaración de la clase Tienda
-class Tienda
+
+
+// Declaración de la clase Venta
+class Venta
 {
-    // Variables de instancia de Tienda
+    // Variables de instancia de Venta
     private:
-        Inventario inventario;
-        Venta ventaActual;
-    
-    // Métodos de Tienda
+        Producto* productosVendidos[20];//Se define como apuntador para usar polimorfismo
+        double total;
+        int numVentas;
+
+    // Métodos de Venta
     public:
-        Tienda();
-        void crearInventario();
-        void crearVenta();
-        void mostrarInformacionInventario();
-        void mostrarInformacionVenta();
+        Venta();
+        void agregarProductoVenta(Producto* p_vendido);
+        double calcularTotal();
+        double calcularTotal(double descuento);
+        void mostrarDetallesVenta();
 };
 
 /**
- * Constructor por defecto de Tienda.
+ * Constructor por defecto de Venta.
+ *
+ * Inicializa el número de ventas a 0 y el total a 0.0.
  * 
  * @param
  * @return
  */
-Tienda::Tienda(){}
+Venta::Venta(): numVentas(0), total(0.0){}
 
 /**
- * crearInventario crea un inventario de productos.
+ * agregarProductoVenta agrega un producto a la venta.
  *
- * Solicita al usuario la cantidad de productos y los detalles de cada producto, y los agrega al inventario.
- * 
- * @param
+ * Recibe un puntero a un objeto de tipo Producto y lo agrega a la venta.
+ *
+ * @param p_vendido Puntero a un objeto Producto.
  * @return
  */
-void Tienda::crearInventario()
-    {
-        char respuesta;
-        std::cout << "Quieres crear un inventario? (s/n): ";
-        std::cin >> respuesta;
-        if (respuesta == 's' || respuesta == 'S')
+void Venta::agregarProductoVenta(Producto* p_vendido)
         {
-            int numProductos;
-            std::cout << "Cuantos productos quieres agregar?: ";
-            std::cin >> numProductos;
-
-            for (int i = 0; i < numProductos; ++i)
+            if (numVentas < 20)// LImitar a 20 ventas.
             {
-                int id, cantidad, tipoProducto;
-                double precio, tasaImpuesto;
-                std::string nombre;
-                std::cout << "Agregar producto " << i + 1 << ":" << std::endl;
-                std::cout << "ID: ";
-                std::cin >> id;
-                std::cout << "Nombre: ";
-                std::cin.ignore(); // Ignorar el salto de línea anterior
-                std::getline(std::cin, nombre);
-                std::cout << "Precio: ";
-                std::cin >> precio;
-                std::cout << "Cantidad: ";
-                std::cin >> cantidad;
-                std::cout << "Tipo de producto (1 - Alimento, 2 - Articulo): ";
-                std::cin >> tipoProducto;
-
-                if (tipoProducto == 1)
-                {
-                    inventario.agregarProducto(new Alimento(id, nombre, precio, cantidad));
-                }
-                else if (tipoProducto == 2)
-                {
-                    std::cout << "Tasa de Impuesto (%): ";
-                    std::cin >> tasaImpuesto;
-                    inventario.agregarProducto(new Articulo(id, nombre, precio, cantidad, tasaImpuesto));
-                }
-                else
-                {
-                    std::cout << "Tipo de producto no valido." << std::endl;
-                }
-            }
-            std::cout << "Inventario creado." << std::endl;
-        }
-        else
-        {
-            std::cout << "No se creo el inventario." << std::endl;
-        }
-
-    }
-
-/**
- * crearVenta crea una nueva venta.
- *
- * Solicita al usuario la cantidad de productos a agregar a la venta y los detalles de cada producto.
- * Luego, agrega los productos a la venta si se encuentran en el inventario.
- * 
- * @param
- * @return
- */
-void Tienda::crearVenta()
-    {
-        ventaActual = Venta(); // Resetea la venta actual
-        int numProductos;
-        std::cout << "Cuantos productos quieres agregar a la venta?: ";
-        std::cin >> numProductos;
-
-        for (int i = 0; i < numProductos; ++i)
-        {
-            int id, cantidad;
-            std::cout << "Agregar producto " << i + 1 << " a la venta:" << std::endl;
-            std::cout << "ID: ";
-            std::cin >> id;
-            //std::cout << "Cantidad: ";
-            //std::cin >> cantidad;
-            Producto* producto = inventario.buscarProducto(id);
-            if (producto != nullptr)
-            {
-                ventaActual.agregarProductoVenta(producto);
-                std::cout << "Producto agregado a la venta." << std::endl;
+                productosVendidos[numVentas++] = p_vendido;
             }
             else
             {
-                std::cout << "Producto no encontrado en el inventario." << std::endl;
+                std::cout << "Ventas completadas." << std::endl;
             }
         }
-        std::cout << "Venta creada." << std::endl;
-    }
 
 /**
- * mostrarInformacionInventario muestra la información del inventario.
+ * calcularTotal calcula el total de la venta.
  *
- * Llama al método mostrarInventario del objeto Inventario para imprimir la información de todos los productos en el inventario.
+ * Calcula el total de la venta sumando los precios de todos los productos 
+ * vendidos.
+ *
+ * @param
+ * @return Total de la venta.
+ */
+double Venta::calcularTotal()
+        {
+            total = 0.0;
+            for (int i = 0; i < numVentas;i++)
+            {
+                total += productosVendidos[i] ->calcularPrecio() * productosVendidos[i]->getCantidad();
+            }
+            return total;
+        }
+
+/**
+ * calcularTotal calcula el total de la venta aplicando un descuento.
+ *
+ * Calcula el total de la venta sumando los precios de todos los productos 
+ * vendidos y aplicando un descuento.
+ *
+ * @param descuento Porcentaje de descuento aplicado.
+ * @return Total de la venta con descuento.
+ */
+double Venta::calcularTotal(double descuento) 
+        {
+            total = 0.0;
+            for (int i = 0; i < numVentas; i++) 
+            {
+                total += productosVendidos[i]->calcularPrecio() * productosVendidos[i]->getCantidad();
+            }
+            return total * (1 - descuento / 100);
+        }
+
+/**
+ * mostrarDetallesVenta muestra la información de la venta.
+ *
+ * Imprime la información de todos los productos vendidos y el total de la venta.
  * 
  * @param
  * @return
  */
-void Tienda::mostrarInformacionInventario()
-    {
-        inventario.mostrarInventario();
-    }
+void Venta::mostrarDetallesVenta()
+        {
+            std::cout<<"Informacion de las ventas:"<<std::endl;
+            for(int i = 0; i < numVentas;i++ )
+            {
+                productosVendidos[i]->infoProducto();
+            }
+            std::cout << "El total de la venta es: " << calcularTotal() <<std::endl;
+        }
 
-/**
- * mostrarInformacionVenta muestra la información de la venta.
- *
- * Llama al método mostrarDetallesVenta del objeto Venta para imprimir la información de todos los productos vendidos y el total de la venta.
- * 
- * @param 
- * @return
- */
-void Tienda::mostrarInformacionVenta() 
-    {
-        ventaActual.mostrarDetallesVenta();
-    }
-
-#endif //TIENDA_H
+#endif // VENTA_H
