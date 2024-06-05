@@ -21,10 +21,10 @@ El programa permite gestionar un inventario de productos y realizar ventas. Incl
 
 ## Consideraciones
 El programa solo corre en la consola y está hecho con C++ estándar, por lo que funciona en todos los sistemas operativos.
-- **Compilación**: 
-Utiliza el siguiente comando para compilar el proyecto: g++ producto.h inventario.h venta.h tienda.h main.cpp -o tienda
+**Compilación**: 
+   - Utiliza el siguiente comando para compilar el proyecto: g++ producto.h inventario.h venta.h tienda.h main.cpp -o tienda
 
-- **Ejecución**:
+**Ejecución**:
    -En Linux: ./tienda
    -En Windows: tienda.exe
 
