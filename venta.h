@@ -113,19 +113,27 @@ double Venta::calcularTotal(double descuento)
 /**
  * mostrarDetallesVenta muestra la información de la venta.
  *
- * Imprime la información de todos los productos vendidos y el total de la venta.
+ * Imprime la información de todos los productos vendidos y el total de la venta,
+ * muestra un mensaje si no se realizo una venta "Sin informacion".
  * 
  * @param
  * @return
  */
 void Venta::mostrarDetallesVenta()
         {
-            std::cout<<"Informacion de las ventas:"<<std::endl;
-            for(int i = 0; i < numVentas;i++ )
+            if(numVentas == 0)
             {
-                productosVendidos[i]->infoProducto();
+                std::cout << "Sin informacion de la venta." << std::endl;
             }
-            std::cout << "El total de la venta es: " << calcularTotal() <<std::endl;
+            else
+            {
+                std::cout<<"Informacion de las ventas:"<<std::endl;
+                for(int i = 0; i < numVentas;i++ )
+                {
+                    productosVendidos[i]->infoProducto();
+                }
+                std::cout << "El total de la venta es: " << calcularTotal() <<std::endl;
+            }
         }
 
 #endif // VENTA_H
