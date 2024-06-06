@@ -4,7 +4,7 @@
  * A01711722
  * 06/06/2024
  *
- * Este es un proyecto demo para la clase TC1030 Programación Orientado a
+ * Este es un proyecto para la clase TC1030 Programación Orientado a
  * Objetos. Es un programa que captura diferentes tipos de productos (Alimentos y Artículos),
  * los gestiona en un inventario y permite realizar ventas calculando los precios
  * con polimorfismo.
