@@ -144,17 +144,25 @@ Producto* Inventario::buscarProducto(int id)
 /**
  * mostrarInventario muestra la información del inventario.
  *
- * Imprime la información de todos los productos en el inventario.
+ * Imprime la información de todos los productos en el inventario,
+ * en caso de no tener ningún prouducto muestra el mensaje "Sin informacion del inventario"
  * 
  * @param
  * @return
  */
 void Inventario::mostrarInventario()
         {
-            std::cout<<"Informacion del inventario:"<<std::endl;
-            for(int i = 0; i < numProductos;i++ )
+            if (numProductos == 0) 
             {
-                producto[i]->infoProducto();
+                std::cout << "Sin informacion del inventario." << std::endl;
+            } 
+            else 
+            {
+                std::cout<<"Informacion del inventario:"<<std::endl;
+                for(int i = 0; i < numProductos;i++ )
+                {
+                    producto[i]->infoProducto();
+                }
             }
         }
 /**
