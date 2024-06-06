@@ -121,29 +121,39 @@ void Tienda::crearInventario()
  */
 void Tienda::crearVenta()
     {
-        ventaActual = Venta(); // Resetea la venta actual
-        int numProductos;
-        std::cout << "Cuantos productos quieres agregar a la venta?: ";
-        std::cin >> numProductos;
-
-        for (int i = 0; i < numProductos; ++i)
+        char respuesta;
+        std::cout << "Quieres realizar una venta? (s/n): ";
+        std::cin >> respuesta;
+        if (respuesta == 's' || respuesta == 'S')
         {
-            int id, cantidad;
-            std::cout << "Agregar producto " << i + 1 << " a la venta:" << std::endl;
-            std::cout << "ID: ";
-            std::cin >> id;
-            Producto* producto = inventario.buscarProducto(id);
-            if (producto != nullptr)
+            ventaActual = Venta(); // Resetea la venta actual
+            int numProductos;
+            std::cout << "Cuantos productos quieres agregar a la venta?: ";
+            std::cin >> numProductos;
+
+            for (int i = 0; i < numProductos; ++i)
             {
-                ventaActual.agregarProductoVenta(producto);
-                std::cout << "Producto agregado a la venta." << std::endl;
+                int id, cantidad;
+                std::cout << "Agregar producto " << i + 1 << " a la venta:" << std::endl;
+                std::cout << "ID: ";
+                std::cin >> id;
+                Producto* producto = inventario.buscarProducto(id);
+                if (producto != nullptr)
+                {
+                    ventaActual.agregarProductoVenta(producto);
+                    std::cout << "Producto agregado a la venta." << std::endl;
+                }
+                else
+                {
+                    std::cout << "Producto no encontrado en el inventario." << std::endl;
+                }
             }
-            else
-            {
-                std::cout << "Producto no encontrado en el inventario." << std::endl;
-            }
+            std::cout << "Venta creada." << std::endl;
         }
-        std::cout << "Venta creada." << std::endl;
+        else
+        {
+            std::cout << "No se creo el inventario." << std::endl;
+        }
     }
 
 /**
