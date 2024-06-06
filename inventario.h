@@ -5,8 +5,9 @@
  * A01711722
  * 06/06/2024
  * 
- * Esta clase define objeto de tipo Inventario y Venta que contienen las operaciones
- * para agregar, eliminar y buscar productos en el inventario, y para gestionar las ventas.
+ * Esta clase define un objeto de tipo Inventario que contiene las operaciones
+ * para agregar, eliminar y buscar productos en el inventario. 
+ * Además, gestiona la muestra de la información de los productos.
  * Esta clase es utilizada por la función principal del programa y es parte del proyecto Tienda.
  */
 
