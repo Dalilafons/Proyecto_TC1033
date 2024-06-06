@@ -132,8 +132,6 @@ void Tienda::crearVenta()
             std::cout << "Agregar producto " << i + 1 << " a la venta:" << std::endl;
             std::cout << "ID: ";
             std::cin >> id;
-            //std::cout << "Cantidad: ";
-            //std::cin >> cantidad;
             Producto* producto = inventario.buscarProducto(id);
             if (producto != nullptr)
             {
