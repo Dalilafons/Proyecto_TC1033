@@ -114,7 +114,7 @@ double Venta::calcularTotal(double descuento)
  * mostrarDetallesVenta muestra la información de la venta.
  *
  * Imprime la información de todos los productos vendidos y el total de la venta,
- * muestra un mensaje si no se realizo una venta "Sin informacion".
+ * muestra un mensaje si no se realizo una venta "Sin informacion de la venta".
  * 
  * @param
  * @return
