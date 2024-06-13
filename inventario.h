@@ -1,6 +1,6 @@
 /*
  *
- * Proyecto Tienda clase Inventario
+ * Proyecto Tienda clase Inventario 1
  * Dalila Fonseca Maya
  * A01711722
  * 06/06/2024
@@ -8,7 +8,8 @@
  * Esta clase define un objeto de tipo Inventario que contiene las operaciones
  * para agregar, eliminar y buscar productos en el inventario. 
  * Además, gestiona la muestra de la información de los productos.
- * Esta clase es utilizada por la función principal del programa y es parte del proyecto Tienda.
+ * Esta clase es utilizada por la función principal del programa 
+ * y es parte del proyecto Tienda.
  */
 
 #ifndef INVENTARIO_H_ 
@@ -25,7 +26,7 @@ class Inventario
 {
     // Variables de instancia de Inventario
     private:
-        Producto* producto[20];// Se define como apuntador para usar polimorfismo.
+        Producto* producto[20];//Apuntador para usar polimorfismo.
         int numProductos;
 
     // Métodos de Inventario
@@ -123,7 +124,8 @@ void Inventario::eliminarProducto(std::string nombre)
 /**
  * buscarProducto busca un producto en el inventario por ID.
  *
- * Busca un producto por su ID y devuelve un puntero al producto si se encuentra.
+ * Busca un producto por su ID y devuelve un puntero al producto si se 
+ * encuentra.
  *
  * @param id ID del producto a buscar.
  * @return Puntero al producto encontrado, o nullptr si no se encuentra.
@@ -134,11 +136,12 @@ Producto* Inventario::buscarProducto(int id)
             {
                 if (producto[i]->getId()==id)
                 {
-                    std::cout << "El producto encontrado es: " << producto[i]->getNombre() << std::endl;
+                    std::cout << "El producto encontrado es: " <<
+                     producto[i]->getNombre() << std::endl;
                     return producto[i];
                 }
             }    
-            std::cout << "Producto con id:" << id << "no encontrado."<<std::endl;    
+            std::cout<< "Producto con id:" << id << "no encontrado."<<std::endl;    
             return nullptr;
         }
 
@@ -146,7 +149,8 @@ Producto* Inventario::buscarProducto(int id)
  * mostrarInventario muestra la información del inventario.
  *
  * Imprime la información de todos los productos en el inventario,
- * en caso de no tener ningún prouducto muestra el mensaje "Sin informacion del inventario"
+ * en caso de no tener ningún prouducto muestra el mensaje 
+ * "Sin informacion del inventario"
  * 
  * @param
  * @return
