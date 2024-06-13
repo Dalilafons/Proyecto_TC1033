@@ -1,6 +1,6 @@
 /*
  *
- * Proyecto Tienda clase Inventario 1
+ * Proyecto Tienda clase Inventario 
  * Dalila Fonseca Maya
  * A01711722
  * 06/06/2024
