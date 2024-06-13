@@ -1,13 +1,13 @@
 /*
  *
- * Proyecto Tienda clase Producto
+ * Proyecto Tienda clase Producto 
  * Dalila Fonseca Maya
  * A01711722
  * 06/06/2024
  * 
  * Esta clase define un objeto de tipo Producto, que es una clase base abstracta
- * utilizada para manejar productos. Proporciona métodos para obtener y establecer
- * el ID, nombre, precio y cantidad del producto. 
+ * utilizada para manejar productos. Proporciona métodos para obtener 
+ * y establecer el ID, nombre, precio y cantidad del producto. 
  * Contiene las clases heredadas Articulo y Alimento.
  */
 
@@ -18,7 +18,7 @@
 
 #include <string>
 
-//Dclaración de clase empleado que es abstracta
+//Declaración de clase empleado que es abstracta
 class Producto
 {
     //Declaro variables de instancia
@@ -31,7 +31,7 @@ class Producto
     // Métodos de Producto
     public:
         Producto(int id1, std::string nombre1, double precio1,int cantidad1);
-        virtual double calcularPrecio() = 0; //método abstracto será sobrescrito.
+        virtual double calcularPrecio() = 0;//método abstracto será sobrescrito.
         std::string getNombre();
         double getPrecio();
         int getCantidad();
@@ -56,7 +56,7 @@ Producto::Producto(int id1, std::string nombre1, double precio1,int cantidad1)
         : id(id1), nombre(nombre1), precio(precio1), cantidad(cantidad1) {}
 
 /**
- * getNombre bbtiene el nombre del producto.
+ * getNombre obtiene el nombre del producto.
  *
  * Devuelve el nombre del producto.
  *
@@ -155,7 +155,8 @@ void Producto::setCantidad(int nuevaCantidad)
  */
 void Producto::infoProducto()
         {
-            std::cout << "ID: " << id << ", Nombre: " << nombre<< ", Precio: " << precio << ", Cantidad: " << cantidad << std::endl;
+            std::cout << "ID: " << id << ", Nombre: " << nombre<< ", Precio: " 
+            << precio << ", Cantidad: " << cantidad << std::endl;
         }
 
 
@@ -168,7 +169,8 @@ class Articulo : public Producto
 
     // Métodos de Articulo
     public:
-        Articulo(int id1, std::string nombre1, double precio1,int cantidad1, double tasaImpuesto1);
+        Articulo(int id1, std::string nombre1, double precio1,int cantidad1,
+         double tasaImpuesto1);
         double calcularPrecio(); 
         double getTasaImpuesto();
 };
@@ -184,8 +186,9 @@ class Articulo : public Producto
  * @param cantidad1 Cantidad del artículo.
  * @param tasaImpuesto1 Tasa de impuesto aplicada al artículo.
  */
-Articulo::Articulo(int id1, std::string nombre1, double precio1,int cantidad1, double tasaImpuesto1)
-        : tasaImpuesto(tasaImpuesto1), Producto(id1,nombre1,precio1,cantidad1){}
+Articulo::Articulo(int id1, std::string nombre1, double precio1,
+int cantidad1, double tasaImpuesto1)
+: tasaImpuesto(tasaImpuesto1), Producto(id1,nombre1,precio1,cantidad1){}
         
 /**
  * calcularPrecio calcula el precio del artículo con el impuesto aplicado.
@@ -242,7 +245,8 @@ Alimento::Alimento(int id1, std::string nombre1, double precio1,int cantidad1)
 /**
  * calcularPrecio calcula el precio del alimento con un incremento del 5%.
  *
- * Calcula el precio total del alimento aplicando un incremento del 5% al precio.
+ * Calcula el precio total del alimento aplicando un incremento del 
+ * 5% al precio.
  *
  * @param
  * @return Precio total del alimento incluyendo el incremento.
