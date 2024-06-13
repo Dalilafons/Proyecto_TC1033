@@ -1,6 +1,6 @@
 /*
  *
- * Proyecto Tienda clase Venta
+ * Proyecto Tienda clase Venta 
  * Dalila Fonseca Maya
  * A01711722
  * 06/06/2024
@@ -8,9 +8,10 @@
  * Esta clase define un objeto de tipo Venta que contiene las operaciones
  * necesarias para gestionar las ventas de productos. Permite agregar productos
  * a la venta, calcular el total de la venta, aplicar descuentos, y mostrar
- * detalles de la venta. Los productos pueden ser de diferentes tipos (por ejemplo,
- * Articulo o Alimento) gracias al uso de polimorfismo. Esta clase es utilizada
- * por la función principal del programa y es parte del proyecto Tienda.
+ * detalles de la venta. Los productos pueden ser de diferentes 
+ * tipos (por ejemplo,Articulo o Alimento) gracias al uso de polimorfismo. 
+ * Esta clase es utilizada por la función principal del programa
+ *  y es parte del proyecto Tienda.
  */
 
 #ifndef VENTA_H_ 
@@ -29,7 +30,7 @@ class Venta
 {
     // Variables de instancia de Venta
     private:
-        Producto* productosVendidos[20];//Se define como apuntador para usar polimorfismo
+        Producto* productosVendidos[20];//Apuntador para usar polimorfismo.
         double total;
         int numVentas;
 
@@ -86,7 +87,8 @@ double Venta::calcularTotal()
             total = 0.0;
             for (int i = 0; i < numVentas;i++)
             {
-                total += productosVendidos[i] ->calcularPrecio() * productosVendidos[i]->getCantidad();
+                total += productosVendidos[i] ->calcularPrecio() 
+                * productosVendidos[i]->getCantidad();
             }
             return total;
         }
@@ -105,7 +107,8 @@ double Venta::calcularTotal(double descuento)
             total = 0.0;
             for (int i = 0; i < numVentas; i++) 
             {
-                total += productosVendidos[i]->calcularPrecio() * productosVendidos[i]->getCantidad();
+                total += productosVendidos[i]->calcularPrecio() 
+                * productosVendidos[i]->getCantidad();
             }
             return total * (1 - descuento / 100);
         }
@@ -113,8 +116,9 @@ double Venta::calcularTotal(double descuento)
 /**
  * mostrarDetallesVenta muestra la información de la venta.
  *
- * Imprime la información de todos los productos vendidos y el total de la venta,
- * muestra un mensaje si no se realizo una venta "Sin informacion de la venta".
+ * Imprime la información de todos los productos vendidos y el total de la 
+ * venta, muestra un mensaje si no se realizo una venta 
+ * "Sin informacion de la venta".
  * 
  * @param
  * @return
@@ -132,7 +136,8 @@ void Venta::mostrarDetallesVenta()
                 {
                     productosVendidos[i]->infoProducto();
                 }
-                std::cout << "El total de la venta es: " << calcularTotal() <<std::endl;
+                std::cout << "El total de la venta es: " 
+                << calcularTotal() <<std::endl;
             }
         }
 
